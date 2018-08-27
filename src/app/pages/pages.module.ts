@@ -14,6 +14,7 @@ import { Graficas1Component } from './graficas1/graficas1.component';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 
 
+
 @NgModule({
     declarations: [
         PagesComponent,
