@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { UsuarioService } from '../services/usuario/usuario.service';
+import { UsuarioService } from '../services/service.index';
 
 import { Usuario } from '../models/usuario.model';
 
@@ -18,8 +18,8 @@ export class RegisterComponent implements OnInit {
 
   forma: FormGroup;
 
-  //constructor( public _usuarioService: UsuarioService ) {
-  constructor(  ) {
+  constructor( public _usuarioService: UsuarioService ) {
+  //constructor(  ) {
 
    }
 
