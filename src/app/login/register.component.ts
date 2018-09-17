@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-import { UsuarioService } from '../services/service.index';
-
 import { Usuario } from '../models/usuario.model';
 
-import swal from 'sweetalert';
 
-//declare function init_plugins();
+import { UsuarioService } from '../services/service.index';
+import { Router } from '@angular/router';
+
+import  swal from 'sweetalert';
+
+declare function init_plugins();
 
 @Component({
   selector: 'app-register',
@@ -18,10 +19,10 @@ export class RegisterComponent implements OnInit {
 
   forma: FormGroup;
 
-  constructor( public _usuarioService: UsuarioService ) {
-  //constructor(  ) {
-
-   }
+  constructor(
+    public _usuarioService: UsuarioService,
+    public router: Router
+  ) { }
 
   sonIguales( cadenaUno: string, cadenaDos: string) {
 
@@ -42,7 +43,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    //init_plugins();
+    init_plugins();
     this.forma = new FormGroup({
       nombre: new FormControl(null, Validators.required),
       correo: new FormControl(null, [Validators.required, Validators.email]),
@@ -68,7 +69,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     if ( !this.forma.value.validacion ) {
-      swal('Importante','Debe de validar si es correcto el nombre de su patrocinador','warning');
+      swal('Importante', 'Debe de validar si es correcto el nombre de su patrocinador', 'warning');
       return;
     }
 
@@ -81,11 +82,13 @@ export class RegisterComponent implements OnInit {
     );
 
     console.log('Ready to register');
-    //this._usuarioService.crearUsuario(usuario)
-    //    .subscribe( resp => {
-     //       console.log(resp);
-    //    });
-
+    this._usuarioService.crearUsuario(usuario)
+        .subscribe( resp => {
+            console.log(resp);
+            this.router.navigate(['/login']);
+        }, error => { 
+          swal('Ya existe usuario o no existe patrocinador', usuario.email, 'error' );
+       });
   }
 
 }

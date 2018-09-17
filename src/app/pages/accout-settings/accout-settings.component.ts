@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
-//import { SettingsService } from '../../services/service.index';
+import { SettingsService } from '../../services/service.index';
 
 @Component({
   selector: 'app-accout-settings',
@@ -10,8 +10,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 })
 export class AccoutSettingsComponent implements OnInit {
 
-  //constructor( public _ajustes: SettingsService ) { }
-  constructor(  ) {}
+  constructor( public _ajustes: SettingsService ) { }
 
   ngOnInit() {
     this.colocarCheck();
@@ -21,7 +20,7 @@ export class AccoutSettingsComponent implements OnInit {
 
     this.aplicarCheck( link );
 
-    //this._ajustes.aplicarTema( tema );
+    this._ajustes.aplicarTema( tema );
 
   }
 
@@ -41,8 +40,7 @@ export class AccoutSettingsComponent implements OnInit {
 
     let selectores: any = document.getElementsByClassName('selector');
 
-    //let tema = this._ajustes.ajustes.tema;
-    let tema = null;
+    let tema = this._ajustes.ajustes.tema;
 
     for ( let ref of selectores ) {
       if ( ref.getAttribute('data-theme') === tema ) {

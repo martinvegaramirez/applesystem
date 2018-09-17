@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { PAGES_ROUTES } from './pages.routes';
 
@@ -25,7 +26,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 
 @NgModule({
     declarations: [
-        PagesComponent,
+        //PagesComponent,
         DashboardComponent,
         ProgressComponent,
         Graficas1Component,
