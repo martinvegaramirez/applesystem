@@ -16,6 +16,12 @@ export class UsuarioService {
 
   usuario: Usuario;
   token: string;
+  usuarioExiste: boolean = false;
+  usuarioTmp: Usuario;
+  sponsorExiste: boolean = false;
+  sponsors: Usuario[] = [];
+  sponsorName: string = "Valide Nombre del Patrocinador";
+  sponsorAlias: string;
 
   constructor(
     public http: HttpClient,
@@ -88,7 +94,6 @@ export class UsuarioService {
                 this.guardarStorage(resp.id, resp.token, resp.usuario);
                 return true;
               });
-          
 
   }
 
@@ -100,6 +105,51 @@ export class UsuarioService {
               swal('Usuario creado', usuario.email, 'success' );
                 return resp.usuario;
             });
+
+  }
+
+  buscarUsuario( termino: string ) {
+
+    let url = URL_SERVICIOS + 'busqueda/coleccion/usuario/' + termino;
+
+    this.http.get( url )
+        .subscribe( (resp: any) => {
+
+          console.log( resp );
+          this.usuarioTmp = resp.usuario;
+          this.usuarioExiste = true;
+        });
+
+  }
+
+  buscarSponsor( termino: string ) {
+
+    this.sponsorExiste = false;
+    this.sponsorName = 'No existe patrocinador';
+    let url = URL_SERVICIOS + 'busqueda/coleccion/usuario/' + termino;
+
+    this.http.get( url )
+        .subscribe( (resp: any) => {
+
+          console.log( resp );
+          this.sponsors = resp.usuario;
+          
+          for (let i=0; i<this.sponsors.length; i++) {
+              if (this.sponsors[i].usuario === termino) {
+               this.sponsorExiste = true;
+               this.sponsorName = this.sponsors[i].nombre;
+             }
+          }
+          this.sponsors.forEach(row => {
+             
+            
+          });
+
+          if (!this.sponsorExiste) {
+            swal('Intente de nuevo', this.sponsorName, 'warning' );
+          }
+
+        });
 
   }
 

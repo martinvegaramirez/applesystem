@@ -12,12 +12,12 @@ import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 
 
 const pagesRoutes: Routes = [
-    { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
-    { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
-    { path: 'graficas1', component: Graficas1Component, data: { titulo: 'Gráficas' } },
-    { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
-    { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
-    { path: 'account-settings', component: AccoutSettingsComponent, data: { titulo: 'Ajustes del Tema' } },
+    { path: 'dashboard', component: DashboardComponent, data: { titulo: 'TU CUENTA' } },
+    { path: 'progress', component: ProgressComponent, data: { titulo: 'PROGRESO' } },
+    { path: 'graficas1', component: Graficas1Component, data: { titulo: 'GRAFICAS' } },
+    { path: 'promesas', component: PromesasComponent, data: { titulo: 'PROXIMAMENTE' } },
+    { path: 'rxjs', component: RxjsComponent, data: { titulo: 'COMPONENTE' } },
+    { path: 'account-settings', component: AccoutSettingsComponent, data: { titulo: 'AJUSTES DEL TEMA' } },
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
  
 ];

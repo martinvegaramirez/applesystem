@@ -18,7 +18,9 @@ declare function init_plugins();
 export class RegisterComponent implements OnInit {
 
   forma: FormGroup;
-
+  sponsorExiste: boolean = false;
+  sponsorName: string = "Patrocinador";
+  
   constructor(
     public _usuarioService: UsuarioService,
     public router: Router
@@ -49,6 +51,7 @@ export class RegisterComponent implements OnInit {
       correo: new FormControl(null, [Validators.required, Validators.email]),
       contrasena: new FormControl(Validators.required),
       contrasena2: new FormControl(Validators.required),
+      usuario: new FormControl(null, Validators.required),
       sponsor: new FormControl(null, Validators.required),
       validacion: new FormControl(false)
     }, {validators: this.sonIguales('contrasena', 'contrasena2') }  );
@@ -58,6 +61,7 @@ export class RegisterComponent implements OnInit {
       correo: 'martin.vega.rami@gmail.com',
       contrasena: '123',
       contrasena2:  '123',
+      usuario: 'mvega'
       sponsor: 'mvega',
       validacion: false
 
@@ -77,7 +81,7 @@ export class RegisterComponent implements OnInit {
       this.forma.value.nombre,
       this.forma.value.correo,
       this.forma.value.contrasena,
-      this.forma.value.sponsor,
+      this.forma.value.usuario,
       this.forma.value.sponsor
     );
 
@@ -87,8 +91,27 @@ export class RegisterComponent implements OnInit {
             console.log(resp);
             this.router.navigate(['/login']);
         }, error => { 
-          swal('Ya existe usuario o no existe patrocinador', usuario.email, 'error' );
+          swal('Ya existe usuario ', usuario.email, 'error' );
        });
+  }
+
+  buscaSponsor() {
+    this._usuarioService.buscarSponsor(this.forma.value.sponsor)
+    .subscribe( resp => {
+      console.log(resp);
+      this.forma.value.validacion.disabled = false;
+      if ( !resp.sponsorExiste) {
+          this.sponsorExiste = resp.sponsorExiste;
+          this.sponsorName = resp.sponsorName;
+          console.log('Patrocinador OK');
+      } else {
+        console.log('Patrocinador NO EXISTE');
+        swal('No existe patrocinador, verifique de nuevo', this.forma.value.sponsor, 'error' );
+      }
+    }, error => { 
+      swal('No existe sponsor o  patrocinador, verifique de nuevo', this.forma.value.correo, 'error' );
+    });
+
   }
 
 }

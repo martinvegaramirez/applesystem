@@ -7,7 +7,7 @@ import { UsuarioService } from '../../services/service.index';
   styles: []
 })
 export class HeaderComponent implements OnInit {
-
+  today: number = Date.now();
   constructor(
     public _usuarioService: UsuarioService
   ) { }
